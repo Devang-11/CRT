@@ -1,36 +1,36 @@
 import cv2
 from random import randint
 
-# Load YOLO model
+
 dnn = cv2.dnn.readNet('yolov4-tiny.weights', 'yolov4-tiny.cfg')
 model = cv2.dnn_DetectionModel(dnn)
 model.setInputParams(size=(416, 416), scale=1/255, swapRB=True)
 
-# Load classes
+
 with open('classes.txt') as f:
     classes = f.read().strip().splitlines()
 
-# Open video file
+
 video_file_path = '/Users/dev/Documents/pr/Object detection/Video.mp4'  # Replace with your video file path
 capture = cv2.VideoCapture(video_file_path)
 
-# Set frame dimensions (optional)
+
 capture.set(cv2.CAP_PROP_FRAME_WIDTH, 1280)
 capture.set(cv2.CAP_PROP_FRAME_HEIGHT, 720)
 
 color_map = {}
 
 while True:
-    # Frame capture
+ 
     ret, frame = capture.read()
 
     if not ret:
-        # End of the video
+       
         break
 
     frame = cv2.flip(frame, 1)
 
-    # Object detection
+    
     class_ids, confidences, boxes = model.detect(frame)
     for id, confidence, box in zip(class_ids, confidences, boxes):
         x, y, w, h = box
@@ -48,13 +48,13 @@ while True:
     cv2.imshow('Video Capture', frame)
     key = cv2.waitKey(1)
 
-    # Key event handling
+   
     if key == 27:  # Esc key to exit
         break
 
     elif key == 13:  # Enter key to reset colors
         color_map = {}
 
-# Release resources
+
 capture.release()
 cv2.destroyAllWindows()
