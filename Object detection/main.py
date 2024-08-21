@@ -11,7 +11,20 @@ with open('classes.txt') as f:
     classes = f.read().strip().splitlines()
 
 
-video_file_path = '/Users/dev/Documents/pr/Object detection/Video.mp4'  # Replace with your video file path
+
+video_paths = {
+    '1': '../Video.mp4',
+    '2': '../v.mp4'
+}
+
+
+print("Press 1 for first video and 2 for second video")
+
+
+key1 = input()
+
+
+video_file_path = video_paths[key1]
 capture = cv2.VideoCapture(video_file_path)
 
 
